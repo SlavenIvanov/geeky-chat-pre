@@ -1,8 +1,20 @@
 <ion-header>
     <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button>
+                <ion-icon slot="icon-only"
+                          name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
         <ion-title text-center>
             Гийки Чат
         </ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="onLogout()">
+                <ion-icon slot="icon-only"
+                          name="log-out"></ion-icon>
+            </ion-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 

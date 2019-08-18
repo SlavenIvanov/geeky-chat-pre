@@ -1,26 +1,32 @@
 import {Injectable} from '@angular/core';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {first} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
 
-    loggedIn = false;
+    constructor(private afAuth: AngularFireAuth) {
+
+    }
+
+    private authChange() {
+        return this.afAuth.authState;
+    }
 
     isAuthenticated() {
-        return new Promise((resolve => {
-            setTimeout(() => {
-                resolve(this.loggedIn);
-            });
-        }));
+        return this.authChange().pipe(first()).subscribe(user => {
+            return !!user;
+        });
     }
 
-    login() {
-        this.loggedIn = true;
+    signIn() {
+        return this.afAuth.auth.signInAnonymously();
     }
 
-    logout() {
-        this.loggedIn = false;
+    signOut() {
+        return this.afAuth.auth.signOut();
     }
 
 }

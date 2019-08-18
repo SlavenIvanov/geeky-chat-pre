@@ -13,6 +13,7 @@ import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AuthService} from './service/auth/auth.service';
 import {AuthGuard} from './auth.guard';
+import {AngularFireAuthModule} from '@angular/fire/auth';
 
 @NgModule({
     declarations: [AppComponent],
@@ -22,7 +23,8 @@ import {AuthGuard} from './auth.guard';
         IonicModule.forRoot(),
         AppRoutingModule,
         AngularFireModule.initializeApp(environment.firebaseConfig),
-        AngularFirestoreModule
+        AngularFirestoreModule,
+        AngularFireAuthModule
     ],
     providers: [
         StatusBar,
