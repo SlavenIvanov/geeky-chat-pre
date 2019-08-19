@@ -19,11 +19,19 @@
 </ion-header>
 
 <ion-content>
+
     <ion-list>
         <ion-item *ngFor="let item of items | async">
             {{item.message}}
         </ion-item>
     </ion-list>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button size="small">
+            <ion-button fill="clear">🤔</ion-button>
+        </ion-fab-button>
+    </ion-fab>
+
 </ion-content>
 
 <ion-footer>
