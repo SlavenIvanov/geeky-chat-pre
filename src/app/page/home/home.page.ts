@@ -4,7 +4,8 @@ import {Observable} from 'rxjs';
 import * as firebase from 'firebase';
 import {map} from 'rxjs/operators';
 import {AuthService} from '../../service/auth/auth.service';
-import {NavController} from '@ionic/angular';
+import {NavController, PopoverController} from '@ionic/angular';
+import {EmojiPopoverComponent} from '../../component/emoji-popover/emoji-popover.component';
 
 @Component({
     selector: 'app-home',
@@ -14,11 +15,12 @@ import {NavController} from '@ionic/angular';
 export class HomePage {
 
     items: Observable<any[]>;
-    message = '🤔';
+    message = '';
 
     constructor(private fs: AngularFirestore,
                 private authService: AuthService,
-                private navController: NavController) {
+                private navController: NavController,
+                private popoverController: PopoverController) {
         this.items = fs.collection('chat', ref =>
             ref.orderBy('timestamp', 'asc')).valueChanges().pipe(
             map(value => {
@@ -43,6 +45,25 @@ export class HomePage {
             message: this.message
         }).then(() => {
             this.message = '';
+        });
+    }
+
+    onEmojiPopoverOpen($event: MouseEvent) {
+        this.popoverController.create({
+            id: 'EmojiPopover',
+            component: EmojiPopoverComponent,
+            event: $event,
+            mode: 'ios'
+        }).then(popover => {
+            popover.present().then(() => console.log('Popover presented!'));
+            popover.onWillDismiss().then(popoverData => {
+                if (popoverData.data) {
+                    const emoji = popoverData.data.emoji;
+                    this.message += emoji;
+                } else {
+                    console.log('Popover closed without data!');
+                }
+            });
         });
     }
 }

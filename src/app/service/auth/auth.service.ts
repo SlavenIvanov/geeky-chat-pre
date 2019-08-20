@@ -26,7 +26,9 @@ export class AuthService {
     }
 
     signOut() {
-        return this.afAuth.auth.signOut();
+        return this.afAuth.auth.signOut().then(value => {
+            console.log('Log out successful! ' + value);
+        });
     }
 
 }

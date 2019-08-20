@@ -14,6 +14,8 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AuthService} from './service/auth/auth.service';
 import {AuthGuard} from './auth.guard';
 import {AngularFireAuthModule} from '@angular/fire/auth';
+import {ChatRoomsPage} from './page/chat-rooms/chat-rooms.page';
+import {ChatRoomsPageModule} from './page/chat-rooms/chat-rooms.module';
 
 @NgModule({
     declarations: [AppComponent],
@@ -24,7 +26,8 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
         AppRoutingModule,
         AngularFireModule.initializeApp(environment.firebaseConfig),
         AngularFirestoreModule,
-        AngularFireAuthModule
+        AngularFireAuthModule,
+        ChatRoomsPageModule
     ],
     providers: [
         StatusBar,

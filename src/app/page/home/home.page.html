@@ -28,7 +28,8 @@
 
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
         <ion-fab-button size="small">
-            <ion-button fill="clear">🤔</ion-button>
+            <ion-button (click)="onEmojiPopoverOpen($event)"
+                    fill="clear">🤔</ion-button>
         </ion-fab-button>
     </ion-fab>
 

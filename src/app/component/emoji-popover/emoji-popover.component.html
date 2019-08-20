@@ -1,3 +1,7 @@
-<p>
-  emoji-popover works!
-</p>
+<ion-list>
+    <ion-button *ngFor="let emoji of emojis"
+                (click)="onEmojiSelected(emoji)"
+                fill="clear">
+        {{emoji}}
+    </ion-button>
+</ion-list>
