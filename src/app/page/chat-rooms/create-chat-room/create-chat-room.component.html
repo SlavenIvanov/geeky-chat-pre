@@ -1,0 +1,23 @@
+<form #form="ngForm"
+      (ngSubmit)="onCreateChatRoom(form)">
+
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-item>
+                    <ion-label position="floating">Име на стаята</ion-label>
+                    <ion-input name="chatRoomName"
+                               ngModel
+                               required="true"
+                               clear-input="true"></ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row text-center>
+            <ion-col>
+                <ion-button type="submit">Създай</ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</form>
