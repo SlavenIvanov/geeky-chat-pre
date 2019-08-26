@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NavController} from '@ionic/angular';
+import {AuthService} from '../../service/auth/auth.service';
 
 @Component({
     selector: 'app-sign-in',
@@ -8,10 +9,14 @@ import {NavController} from '@ionic/angular';
 })
 export class SignInPage implements OnInit {
 
-    constructor(private navController: NavController) {
+    constructor(private navController: NavController,
+                private authService: AuthService) {
     }
 
     ngOnInit() {
+        if (this.authService.isAuthenticated()) {
+            console.log('User is authenticated, with a verified email!');
+        }
     }
 
     onSignIn() {
@@ -24,6 +29,13 @@ export class SignInPage implements OnInit {
 
     onForgottenPasswordClicked($event: MouseEvent) {
 
+    }
+
+    onSignOut() {
+        this.authService.signOut().then(value => {
+            console.log('Signed out!');
+            console.log(value);
+        });
     }
 
 }

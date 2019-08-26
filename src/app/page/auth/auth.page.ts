@@ -15,17 +15,17 @@ export class AuthPage implements OnInit {
     }
 
     ngOnInit() {
-        if (this.authService.isAuthenticated()) {
-            this.navController.navigateForward('home');
-        }
+        // if (this.authService.isAuthenticated()) {
+        //     this.navController.navigateForward('home');
+        // }
     }
 
     onLogin() {
-        this.authService.signIn().then(value => {
-            console.log('Login');
-            console.log(value);
-            this.navController.navigateForward('home');
-        });
+        // this.authService.signIn().then(value => {
+        //     console.log('Login');
+        //     console.log(value);
+        //     this.navController.navigateForward('home');
+        // });
     }
 
 }

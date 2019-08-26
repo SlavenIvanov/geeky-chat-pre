@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {NavController, ToastController} from '@ionic/angular';
 import {NgForm} from '@angular/forms';
 import {AuthService} from '../../service/auth/auth.service';
+import {User} from 'firebase';
 import UserCredential = firebase.auth.UserCredential;
 
 @Component({
@@ -17,6 +18,7 @@ export class SignUpPage implements OnInit {
     }
 
     ngOnInit() {
+        console.log('Init Up');
     }
 
     onNavToSignIn() {
@@ -51,12 +53,32 @@ export class SignUpPage implements OnInit {
     }
 
     onAccountCreated(userCredential: UserCredential) {
-        this.navController.navigateForward('sign-in').then(() => {
-            const email = userCredential.user.email;
-            this.toastController.create({
-                message: 'Имейл за потвърждаване на акаунта е изпратен на : ' + email,
-                duration: 5000
-            }).then(toast => toast.present());
+        const email = userCredential.user.email;
+
+        this.sendEmailVerification(userCredential.user).then(() => {
+            this.navController.navigateForward('sign-in').then(() => {
+                this.toastController.create({
+                    message: 'Имейл за потвърждаване на акаунта е изпратен на : ' + email,
+                    duration: 5000
+                }).then(toast => toast.present());
+            });
+        });
+        // this.authService.signOut().then(() => {
+        //     return console.log('Signed out after account creation.');
+        // }).then(() => {
+        // this.navController.navigateForward('sign-in').then(() => {
+        //     this.toastController.create({
+        //         message: 'Имейл за потвърждаване на акаунта е изпратен на : ' + email,
+        //         duration: 5000
+        //     }).then(toast => toast.present());
+        // });
+        // });
+    }
+
+    sendEmailVerification(user: User) {
+        return user.sendEmailVerification().then(value => {
+            console.log('EmailSent');
+            console.log(value);
         });
     }
 

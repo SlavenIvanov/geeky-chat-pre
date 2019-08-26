@@ -11,19 +11,22 @@ export class AuthService {
 
     }
 
-    private authChange() {
+    authChange() {
         return this.afAuth.authState;
     }
 
     isAuthenticated() {
         return this.authChange().pipe(first()).subscribe(user => {
-            return !!user;
+            console.log('Authenticating: ');
+            console.log(user);
+            debugger;
+            if (user) {
+                return user.emailVerified;
+            }
+            return false;
         });
     }
 
-    signIn() {
-        return this.afAuth.auth.signInAnonymously();
-    }
 
     createAccountWithEmailAndPassword(email: string, password: string) {
         return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
@@ -34,9 +37,7 @@ export class AuthService {
     }
 
     signOut() {
-        return this.afAuth.auth.signOut().then(value => {
-            console.log('Log out successful! ' + value);
-        });
+        return this.afAuth.auth.signOut();
     }
 
 }
