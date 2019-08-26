@@ -1,0 +1,67 @@
+<ion-header>
+    <ion-img src="assets/icon/geeky-logo-portrait.png"></ion-img>
+    <ion-fab padding-start
+             vertical="bottom"
+             horizontal="begin"
+             edge="true">
+        <ion-fab-button (click)="onNavToSignIn()">
+            <ion-icon name="arrow-back"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</ion-header>
+
+<ion-content padding>
+
+    <ion-grid style="height: fit-content">
+
+        <ion-row>
+            <ion-col text-center>
+                <h1>Регистрация</h1>
+            </ion-col>
+        </ion-row>
+        <ion-row style="height: fit-content" align-items-center>
+            <ion-col text-center>
+
+                <form #form="ngForm"
+                      (ngSubmit)="onCreateAccountPressed(form)">
+                    <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label position="floating">Имейл
+                                </ion-label>
+                                <ion-input name="email"
+                                           ngModel
+                                           required="true"
+                                           email
+                                           type="email"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label position="floating">Парола</ion-label>
+                                <ion-input name="password"
+                                           ngModel
+                                           required="true"
+                                           type="password"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row text-center>
+                        <ion-col>
+                            <ion-button type="submit">
+                                Създай
+                            </ion-button>
+                        </ion-col>
+                    </ion-row>
+                </form>
+
+            </ion-col>
+        </ion-row>
+
+    </ion-grid>
+
+</ion-content>
