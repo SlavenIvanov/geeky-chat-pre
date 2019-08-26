@@ -1,9 +1,18 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>chat</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref=""></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{name}}</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+    <ion-list>
+        <ion-item *ngFor="let message of messages | async">
+            {{message.message}}
+        </ion-item>
+    </ion-list>
 
 </ion-content>

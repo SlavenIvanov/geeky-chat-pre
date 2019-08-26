@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {PopoverController} from '@ionic/angular';
-import {CreateChatRoomComponent} from './create-chat-room/create-chat-room.component';
+import {NavController, PopoverController} from '@ionic/angular';
+import {CreateChatRoomPopoverComponent} from './create-chat-room/create-chat-room-popover.component';
 import {Observable} from 'rxjs';
 import {AngularFirestore} from '@angular/fire/firestore';
 
@@ -14,17 +14,19 @@ export class ChatRoomsPage implements OnInit {
     chatRooms: Observable<any[]>;
 
     constructor(private popoverController: PopoverController,
-                private fs: AngularFirestore) {
+                private fs: AngularFirestore,
+                private navController: NavController) {
     }
 
     ngOnInit() {
-        this.chatRooms = this.fs.collection('chat-rooms').valueChanges();
+        this.chatRooms = this.fs.collection('chat-rooms', ref =>
+            ref.orderBy('timestamp', 'desc')).valueChanges();
     }
 
     onCreateChatRoom($event: MouseEvent) {
         this.popoverController.create({
             id: 'CreateChatRoomPopover',
-            component: CreateChatRoomComponent,
+            component: CreateChatRoomPopoverComponent,
             event: $event,
             mode: 'ios'
         }).then(popover => {
@@ -33,6 +35,8 @@ export class ChatRoomsPage implements OnInit {
     }
 
     onChatRoomClicked(chatRoom: any) {
+        const chatRoomId = chatRoom.id;
         console.log(chatRoom);
+        this.navController.navigateForward(['chat', chatRoomId]);
     }
 }

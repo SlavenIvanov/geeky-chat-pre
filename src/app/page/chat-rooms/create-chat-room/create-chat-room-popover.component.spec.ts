@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateChatRoomComponent } from './create-chat-room.component';
+import { CreateChatRoomPopoverComponent } from './create-chat-room-popover.component';
 
 describe('CreateChatRoomComponent', () => {
-  let component: CreateChatRoomComponent;
-  let fixture: ComponentFixture<CreateChatRoomComponent>;
+  let component: CreateChatRoomPopoverComponent;
+  let fixture: ComponentFixture<CreateChatRoomPopoverComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateChatRoomComponent ],
+      declarations: [ CreateChatRoomPopoverComponent ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateChatRoomComponent);
+    fixture = TestBed.createComponent(CreateChatRoomPopoverComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

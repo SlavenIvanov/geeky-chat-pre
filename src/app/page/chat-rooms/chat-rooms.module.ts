@@ -5,7 +5,7 @@ import {FormsModule} from '@angular/forms';
 import {IonicModule} from '@ionic/angular';
 
 import {ChatRoomsPage} from './chat-rooms.page';
-import {CreateChatRoomComponent} from './create-chat-room/create-chat-room.component';
+import {CreateChatRoomPopoverComponent} from './create-chat-room/create-chat-room-popover.component';
 
 @NgModule({
     imports: [
@@ -13,8 +13,8 @@ import {CreateChatRoomComponent} from './create-chat-room/create-chat-room.compo
         FormsModule,
         IonicModule
     ],
-    declarations: [ChatRoomsPage, CreateChatRoomComponent],
-    entryComponents: [CreateChatRoomComponent]
+    declarations: [ChatRoomsPage, CreateChatRoomPopoverComponent],
+    entryComponents: [CreateChatRoomPopoverComponent]
 })
 export class ChatRoomsPageModule {
 }

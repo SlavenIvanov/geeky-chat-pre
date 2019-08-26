@@ -16,6 +16,7 @@ import {AuthGuard} from './auth.guard';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {ChatRoomsPageModule} from './page/chat-rooms/chat-rooms.module';
 import {AuthPageModule} from './page/auth/auth.module';
+import {ChatPageModule} from './page/chat/chat.module';
 
 @NgModule({
     declarations: [AppComponent],
@@ -28,7 +29,8 @@ import {AuthPageModule} from './page/auth/auth.module';
         AngularFirestoreModule,
         AngularFireAuthModule,
         AuthPageModule,
-        ChatRoomsPageModule
+        ChatRoomsPageModule,
+        ChatPageModule
     ],
     providers: [
         StatusBar,
