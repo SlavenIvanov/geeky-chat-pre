@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {PopoverController} from '@ionic/angular';
 
 @Component({
@@ -8,8 +8,7 @@ import {PopoverController} from '@ionic/angular';
 })
 export class EmojiPopoverComponent {
 
-    emojis = ['🤔', '❤️', '💯', '🔥', '👍', '🇧🇬', '🤔', '❤', '😂', '🔥',
-        '👍', '🇧🇬', '🤔', '❤', '😂', '🔥', '👍', '🇧🇬', '🤔', '❤', '😂'];
+    emojis = ['🤔', '❤️', '🙈', '😍', '💯', '🔥', '👍', '🇧🇬', '😂', '💎'];
 
     constructor(private popoverController: PopoverController) {
     }
