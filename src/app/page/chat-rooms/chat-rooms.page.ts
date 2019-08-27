@@ -3,6 +3,8 @@ import {NavController, PopoverController} from '@ionic/angular';
 import {CreateChatRoomPopoverComponent} from './create-chat-room/create-chat-room-popover.component';
 import {Observable} from 'rxjs';
 import {AngularFirestore} from '@angular/fire/firestore';
+import {AuthService} from '../../service/auth/auth.service';
+import {FsService} from '../../service/firestore/fs.service';
 
 @Component({
     selector: 'app-chat-rooms',
@@ -15,7 +17,8 @@ export class ChatRoomsPage implements OnInit {
 
     constructor(private popoverController: PopoverController,
                 private fs: AngularFirestore,
-                private navController: NavController) {
+                private navController: NavController,
+                private authService: AuthService) {
     }
 
     ngOnInit() {
@@ -39,4 +42,9 @@ export class ChatRoomsPage implements OnInit {
         console.log(chatRoom);
         this.navController.navigateForward(['chat', chatRoomId]);
     }
+
+    onSignOut() {
+        this.authService.signOut().then(() => this.navController.navigateRoot('sign-in'));
+    }
+
 }

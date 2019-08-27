@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {AngularFirestore} from '@angular/fire/firestore';
-import * as firebase from 'firebase';
 import {PopoverController} from '@ionic/angular';
+import {FsService} from '../../../service/firestore/fs.service';
 
 @Component({
     selector: 'app-create-chat-room-popover',
@@ -11,19 +10,19 @@ import {PopoverController} from '@ionic/angular';
 })
 export class CreateChatRoomPopoverComponent implements OnInit {
 
-    constructor(private fs: AngularFirestore,
-                private popoverController: PopoverController) {
+    constructor(private popoverController: PopoverController,
+                private fsService: FsService) {
     }
 
     ngOnInit() {
     }
 
     onCreateChatRoom(form: NgForm) {
-        console.log(this.fs.createId());
+
         if (form.valid) {
             const chatRoomName = form.value.chatRoomName;
 
-            this.createChatRoom(chatRoomName).then(() => {
+            this.fsService.createChatRoom(chatRoomName).then(() => {
                 this.popoverController.dismiss(null, null, 'CreateChatRoomPopover');
                 form.reset();
             });
@@ -31,16 +30,16 @@ export class CreateChatRoomPopoverComponent implements OnInit {
     }
 
     createChatRoom(chatRoomName: string) {
-        const chatRooms = this.fs.collection('chat-rooms');
-
-        const id = this.fs.createId();
-
-        return chatRooms.doc(id).set(
-            {
-                id,
-                name: chatRoomName,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            }
-        );
+        // const chatRooms = this.fs.collection('chat-rooms');
+        //
+        // const id = this.fs.createId();
+        //
+        // return chatRooms.doc(id).set(
+        //     {
+        //         id,
+        //         name: chatRoomName,
+        //         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        //     }
+        // );
     }
 }

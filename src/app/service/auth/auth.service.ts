@@ -1,32 +1,24 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {first} from 'rxjs/operators';
+import {User} from 'firebase';
 
 @Injectable({
     providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements OnDestroy {
+
+    public currentUser: User = null;
 
     constructor(private afAuth: AngularFireAuth) {
-
-    }
-
-    authChange() {
-        return this.afAuth.authState;
-    }
-
-    isAuthenticated() {
-        return this.authChange().pipe(first()).subscribe(user => {
-            console.log('Authenticating: ');
-            console.log(user);
-            debugger;
-            if (user) {
-                return user.emailVerified;
-            }
-            return false;
+        this.afAuth.authState.subscribe(user => {
+            this.currentUser = user;
         });
     }
 
+    singleAuthState() {
+        return this.afAuth.authState.pipe(first());
+    }
 
     createAccountWithEmailAndPassword(email: string, password: string) {
         return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
@@ -38,6 +30,9 @@ export class AuthService {
 
     signOut() {
         return this.afAuth.auth.signOut();
+    }
+
+    ngOnDestroy(): void {
     }
 
 }

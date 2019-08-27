@@ -6,7 +6,7 @@ import {ChatRoom} from '../chat-rooms/chat-room';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {EmojiPopoverComponent} from '../../component/emoji-popover/emoji-popover.component';
-import * as firebase from 'firebase';
+import {FsService} from '../../service/firestore/fs.service';
 
 @Component({
     selector: 'app-chat',
@@ -24,6 +24,7 @@ export class ChatPage implements OnInit {
     constructor(private route: ActivatedRoute,
                 private navController: NavController,
                 private fs: AngularFirestore,
+                private fsService: FsService,
                 private popoverController: PopoverController) {
     }
 
@@ -54,12 +55,9 @@ export class ChatPage implements OnInit {
     }
 
     onMessageSend() {
-        console.log(this.message);
+        console.log('Изпращане на : ' + this.message);
 
-        this.fs.collection('chat-rooms/' + this.id + '/messages').add({
-            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-            message: this.message
-        }).then(() => {
+        this.fsService.sendMessage(this.id, this.message).then(() => {
             this.message = '';
         });
     }

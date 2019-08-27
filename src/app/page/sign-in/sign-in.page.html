@@ -14,31 +14,39 @@
         <ion-row style="height: fit-content"
                  align-items-center>
             <ion-col text-center>
+                <form #form="ngForm"
+                      (ngSubmit)="onSignIn(form)">
+                    <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label position="floating">Имейл</ion-label>
+                                <ion-input name="email"
+                                           ngModel
+                                           required="true"
+                                           email
+                                           type="email"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
 
-                <ion-row>
-                    <ion-col>
-                        <ion-item>
-                            <ion-label position="floating">Имейл</ion-label>
-                            <ion-input></ion-input>
-                        </ion-item>
-                    </ion-col>
-                </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <ion-item>
+                                <ion-label position="floating">Парола</ion-label>
+                                <ion-input name="password"
+                                           ngModel
+                                           required="true"
+                                           type="password"></ion-input>
+                            </ion-item>
+                        </ion-col>
+                    </ion-row>
 
-                <ion-row>
-                    <ion-col>
-                        <ion-item>
-                            <ion-label position="floating">Парола</ion-label>
-                            <ion-input></ion-input>
-                        </ion-item>
-                    </ion-col>
-                </ion-row>
-
-                <ion-row text-center>
-                    <ion-col>
-                        <ion-button (click)="onSignIn()">Влез</ion-button>
-                    </ion-col>
-                </ion-row>
-
+                    <ion-row text-center>
+                        <ion-col>
+                            <ion-button type="submit">Влез</ion-button>
+                        </ion-col>
+                    </ion-row>
+                </form>
                 <ion-row text-center>
                     <ion-col>
                         <ion-button fill="clear" (click)="onNavToSignUp()">Регистрация</ion-button>
