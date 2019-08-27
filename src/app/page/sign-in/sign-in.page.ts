@@ -41,13 +41,6 @@ export class SignInPage implements OnInit {
 
     }
 
-    onSignOut() {
-        this.authService.signOut().then(value => {
-            console.log('Signed out!');
-            console.log(value);
-        });
-    }
-
     authenticateUser(user: User) {
         if (user) {
             if (user.emailVerified) {

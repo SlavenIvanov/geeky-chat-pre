@@ -63,16 +63,6 @@ export class SignUpPage implements OnInit {
                 }).then(toast => toast.present());
             });
         });
-        // this.authService.signOut().then(() => {
-        //     return console.log('Signed out after account creation.');
-        // }).then(() => {
-        // this.navController.navigateForward('sign-in').then(() => {
-        //     this.toastController.create({
-        //         message: 'Имейл за потвърждаване на акаунта е изпратен на : ' + email,
-        //         duration: 5000
-        //     }).then(toast => toast.present());
-        // });
-        // });
     }
 
     sendEmailVerification(user: User) {

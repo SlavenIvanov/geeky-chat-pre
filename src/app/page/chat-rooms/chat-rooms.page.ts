@@ -16,14 +16,13 @@ export class ChatRoomsPage implements OnInit {
     chatRooms: Observable<any[]>;
 
     constructor(private popoverController: PopoverController,
-                private fs: AngularFirestore,
+                private fsService: FsService,
                 private navController: NavController,
                 private authService: AuthService) {
     }
 
     ngOnInit() {
-        this.chatRooms = this.fs.collection('chat-rooms', ref =>
-            ref.orderBy('timestamp', 'desc')).valueChanges();
+        this.chatRooms = this.fsService.chatRooms();
     }
 
     onCreateChatRoom($event: MouseEvent) {

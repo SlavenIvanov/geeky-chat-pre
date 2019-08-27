@@ -2,6 +2,9 @@ import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {AuthService} from '../auth/auth.service';
 import * as firebase from 'firebase';
+import {first, map} from 'rxjs/operators';
+import {ChatRoom} from '../../page/chat-rooms/chat-room';
+import {ChatMessage} from 'src/app/page/chat/chat-message';
 
 @Injectable({
     providedIn: 'root'
@@ -16,10 +19,6 @@ export class FsService {
                 private fs: AngularFirestore) {
     }
 
-    chatRooms() {
-//TODO
-    }
-
     createChatRoom(roomName: string) {
         const roomId = this.getUid();
 
@@ -32,6 +31,21 @@ export class FsService {
             },
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         });
+    }
+
+    chatRoom(roomId: string) {
+        return this.fs.collection(this.chatRoomsId).doc(roomId)
+            .valueChanges()
+            .pipe(
+                first(),
+                map(v => v as ChatRoom)
+            );
+    }
+
+    chatRooms() {
+        return this.fs.collection(this.chatRoomsId, ref => ref.orderBy('timestamp', 'desc'))
+            .valueChanges()
+            .pipe(map(v => v as ChatRoom[]));
     }
 
     sendMessage(chatRoomId: string, message: string) {
@@ -51,8 +65,9 @@ export class FsService {
             });
     }
 
-    messages() {
-        // todo
+    messages(chatId: string) {
+        return this.fs.collection(this.chatRoomsId).doc(chatId).collection(this.messagesId, ref =>
+            ref.orderBy('timestamp', 'asc')).valueChanges().pipe(map(v => v as ChatMessage[]));
     }
 
     private getUid() {

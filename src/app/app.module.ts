@@ -15,7 +15,6 @@ import {AuthService} from './service/auth/auth.service';
 import {AuthGuard} from './auth.guard';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {ChatRoomsPageModule} from './page/chat-rooms/chat-rooms.module';
-import {AuthPageModule} from './page/auth/auth.module';
 import {ChatPageModule} from './page/chat/chat.module';
 import {SignInPageModule} from './page/sign-in/sign-in.module';
 import {SignUpPageModule} from './page/sign-up/sign-up.module';
@@ -32,7 +31,6 @@ import {SignUpPageModule} from './page/sign-up/sign-up.module';
         AngularFireAuthModule,
         SignInPageModule,
         SignUpPageModule,
-        AuthPageModule,
         ChatRoomsPageModule,
         ChatPageModule
     ],

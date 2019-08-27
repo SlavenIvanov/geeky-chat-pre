@@ -1,12 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {NavController, PopoverController} from '@ionic/angular';
-import {AngularFirestore} from '@angular/fire/firestore';
-import {ChatRoom} from '../chat-rooms/chat-room';
-import {map} from 'rxjs/operators';
+import {IonContent, NavController, PopoverController} from '@ionic/angular';
 import {Observable} from 'rxjs';
 import {EmojiPopoverComponent} from '../../component/emoji-popover/emoji-popover.component';
 import {FsService} from '../../service/firestore/fs.service';
+import {ChatMessage} from './chat-message';
+import {tap} from 'rxjs/operators';
 
 @Component({
     selector: 'app-chat',
@@ -15,15 +14,16 @@ import {FsService} from '../../service/firestore/fs.service';
 })
 export class ChatPage implements OnInit {
 
+    @ViewChild('content', {static: false}) ionContent: IonContent;
+
     id: string;
     name: string;
-    messages: Observable<any[]>;
+    messages: Observable<ChatMessage[]>;
 
     message = '';
 
     constructor(private route: ActivatedRoute,
                 private navController: NavController,
-                private fs: AngularFirestore,
                 private fsService: FsService,
                 private popoverController: PopoverController) {
     }
@@ -39,19 +39,21 @@ export class ChatPage implements OnInit {
     }
 
     getChatData(chatId: string) {
-        this.fs.doc('chat-rooms/' + chatId).valueChanges()
-            .pipe(map(v => v as ChatRoom))
+        this.fsService.chatRoom(chatId)
             .subscribe(chatData => {
                 this.id = chatData.id;
                 this.name = chatData.name;
 
-                this.getChatMessages(this.id);
+                this.fetchChatMessages(this.id);
             });
     }
 
-    getChatMessages(chatId: string) {
-        this.messages = this.fs.collection('chat-rooms/' + chatId + '/messages', ref =>
-            ref.orderBy('timestamp', 'asc')).valueChanges();
+    fetchChatMessages(chatId: string) {
+        this.messages = this.fsService.messages(chatId).pipe(tap(v => {
+            setTimeout(() => {
+                this.ionContent.scrollToBottom(200).then(r => console.log('Scrolled to bottom!'));
+            }, 50);
+        }));
     }
 
     onMessageSend() {

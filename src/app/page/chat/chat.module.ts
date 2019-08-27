@@ -7,6 +7,7 @@ import {IonicModule} from '@ionic/angular';
 
 import {ChatPage} from './chat.page';
 import {EmojiPopoverComponent} from '../../component/emoji-popover/emoji-popover.component';
+import {ChatBubbleComponent} from './chat-bubble/chat-bubble.component';
 
 const routes: Routes = [
     {
@@ -22,8 +23,8 @@ const routes: Routes = [
         IonicModule,
         RouterModule.forChild(routes)
     ],
-    declarations: [ChatPage, EmojiPopoverComponent],
-    entryComponents: [EmojiPopoverComponent]
+    declarations: [ChatPage, EmojiPopoverComponent, ChatBubbleComponent],
+    entryComponents: [EmojiPopoverComponent, ChatBubbleComponent]
 })
 export class ChatPageModule {
 }

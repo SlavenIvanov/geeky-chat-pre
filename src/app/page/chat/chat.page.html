@@ -7,12 +7,12 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content #content>
 
     <ion-list>
-        <ion-item *ngFor="let message of messages | async">
-            {{message.message}}
-        </ion-item>
+        <app-chat-bubble *ngFor="let message of messages | async"
+                         [chatMessage]="message">
+        </app-chat-bubble>
     </ion-list>
 
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
