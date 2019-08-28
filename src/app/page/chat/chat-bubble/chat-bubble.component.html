@@ -1,3 +1,19 @@
-<ion-item>
-    {{chatMessage.message}} : {{chatMessage.createdBy.email}}
-</ion-item>
+<ion-grid [ngClass]="!isFirst && !isLast ? 'no-padding' : ''">
+    <ion-row>
+        <ion-col *ngIf="isMine" size="1"></ion-col>
+        <ion-col padding-horizontal
+                 [ngClass]="isMine ? 'my-message' : 'message'">
+            <ion-label text-wrap>
+                isFirst: {{chatMessage.isFirst}}
+                isLast: {{chatMessage.isLast}}
+                <!--                {{chatMessage.message}}-->
+            </ion-label>
+        </ion-col>
+        <ion-col *ngIf="!isMine" size="1"></ion-col>
+    </ion-row>
+    <ion-row *ngIf="!isMine && isLast" padding-horizontal>
+        <ion-col no-padding style="font-style: italic; font-size: small">
+            {{chatMessage.createdBy.email}}
+        </ion-col>
+    </ion-row>
+</ion-grid>

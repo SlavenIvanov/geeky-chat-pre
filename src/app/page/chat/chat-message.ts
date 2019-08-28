@@ -3,6 +3,9 @@ import * as firebase from 'firebase';
 
 export class ChatMessage {
 
+    public isFirst;
+    public isLast;
+
     constructor(public id: string,
                 public message: string,
                 public createdBy: {
@@ -10,6 +13,8 @@ export class ChatMessage {
                     email: string
                 },
                 public timestamp: FieldValue) {
+        this.isFirst = true;
+        this.isLast = true;
     }
 
 }

@@ -5,7 +5,7 @@ import {Observable} from 'rxjs';
 import {EmojiPopoverComponent} from '../../component/emoji-popover/emoji-popover.component';
 import {FsService} from '../../service/firestore/fs.service';
 import {ChatMessage} from './chat-message';
-import {tap} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 
 @Component({
     selector: 'app-chat',
@@ -49,11 +49,35 @@ export class ChatPage implements OnInit {
     }
 
     fetchChatMessages(chatId: string) {
-        this.messages = this.fsService.messages(chatId).pipe(tap(v => {
-            setTimeout(() => {
-                this.ionContent.scrollToBottom(200).then(r => console.log('Scrolled to bottom!'));
-            }, 50);
-        }));
+        this.messages = this.fsService.messages(chatId).pipe(
+            map(v => this.processMessages(v)),
+            tap(v => {
+                setTimeout(() => {
+                    this.ionContent.scrollToBottom(200).then(r => console.log('Scrolled to bottom!'));
+                }, 50);
+            })
+        );
+    }
+
+    processMessages(messages: ChatMessage[]) {
+        let lastUid = '';
+
+        for (const [i, v] of messages.entries()) {
+            messages[i].isFirst = true;
+            messages[i].isLast = true;
+
+            const currentUid = v.createdBy.uid;
+
+            if (i > 0 && lastUid === currentUid) {
+                messages[i].isFirst = false;
+                messages[i - 1].isLast = false;
+            }
+
+            lastUid = currentUid;
+        }
+        console.log(messages);
+
+        return messages;
     }
 
     onMessageSend() {
