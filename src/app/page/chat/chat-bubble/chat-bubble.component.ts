@@ -56,7 +56,7 @@ export class ChatBubbleComponent implements OnInit {
 
     setGridPaddingStyle() {
         const outer = '4px';
-        const inner = '2px';
+        const inner = '1px';
 
         return {
             'padding-top': this.isFirst ? outer : inner,
