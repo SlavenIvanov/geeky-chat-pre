@@ -75,7 +75,6 @@ export class ChatPage implements OnInit {
 
             lastUid = currentUid;
         }
-        console.log(messages);
 
         return messages;
     }
