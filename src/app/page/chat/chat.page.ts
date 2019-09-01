@@ -80,11 +80,12 @@ export class ChatPage implements OnInit {
     }
 
     onMessageSend() {
-        console.log('Изпращане на : ' + this.message);
-
-        this.fsService.sendMessage(this.id, this.message).then(() => {
-            this.message = '';
-        });
+        if (this.message.trim() !== '') {
+            this.fsService.sendMessage(this.id, this.message).then(() => {
+                console.log('Изпращане на : ' + this.message);
+                this.message = '';
+            });
+        }
     }
 
     onEmojiPopoverOpen($event: MouseEvent) {
